@@ -35,37 +35,37 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    @Override
+    @Override // 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("user"));
     }
 
-    @Override
+    @Override // id 고유값 반환
     public String getUsername() {
         return email;
     }
 
-    @Override
+    @Override // 사용자 패스워드 반환
     public String getPassword() {
         return password;
     }
 
-    @Override
+    @Override // 계정 만료 여부 반환
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
+    @Override // 계정 잠금 여부 반환
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
+    @Override // 패스워드의 만료 여부 반환
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
+    @Override // 계정 사용 가능 여부 반환
     public boolean isEnabled() {
         return true;
     }
