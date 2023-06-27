@@ -1,19 +1,24 @@
 package com.junseok.springbootdevelop.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Entity // 엔티티로 지정
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 추가
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Entity
 public class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // pk 1씩 자동 증가
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
@@ -23,6 +28,9 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "author", nullable = false)
+    private String author;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -31,9 +39,9 @@ public class Article {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Builder // 빌더 패턴으로 객체 생성
-    // 어느 필드에 어떤 값이 들어가는지 명시적으로 파악이 가능하다.
-    public Article(String title, String content) {
+    @Builder
+    public Article(String author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
     }
@@ -42,17 +50,4 @@ public class Article {
         this.title = title;
         this.content = content;
     }
-
-    // getter -> @Getter(클래스 필드에 대해 별도 코드 없이 생성사 메서드 생성), @NoArgsConstructor(접근제어자가 protected인 기본 생성자를 코드 없이 생기본)로 대체
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public String getContent() {
-//        return content;
-//    }
 }
