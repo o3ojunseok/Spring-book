@@ -5,6 +5,7 @@ COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 COPY src src
+COPY . .
 
 
 RUN chmod +x ./gradlew
