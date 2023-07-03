@@ -7,7 +7,7 @@ COPY settings.gradle .
 COPY src src
 
 RUN chmod +x ./gradlew
-RUN ./gradlew clean bootJar   
+RUN ./gradlew clean bootJar
 RUN ./gradlew bootJar
 
 FROM eclipse-temurin:17
